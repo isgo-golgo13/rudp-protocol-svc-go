@@ -1,0 +1,17 @@
+# Build stage
+FROM golang:1.23 as builder
+
+WORKDIR /app
+COPY ./client /app
+COPY ./rudp_protocol_kit /app/rudp_protocol_kit
+
+# Build the client binary
+RUN go mod init client && \
+    go mod tidy && \
+    go build -o client main.go
+
+# Final stage
+FROM debian:buster-slim
+COPY --from=builder /app/client /usr/local/bin/client
+
+ENTRYPOINT ["/usr/local/bin/client"]

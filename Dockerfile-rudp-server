@@ -1,0 +1,18 @@
+# Build stage
+FROM golang:1.23 as builder
+
+WORKDIR /app
+COPY ./server /app
+COPY ./rudp_protocol_kit /app/rudp_protocol_kit
+COPY ./storage_kit /app/storage_kit
+
+# Build the server binary
+RUN go mod init server && \
+    go mod tidy && \
+    go build -o server main.go
+
+# Final stage
+FROM debian:buster-slim
+COPY --from=builder /app/server /usr/local/bin/server
+
+ENTRYPOINT ["/usr/local/bin/server"]
