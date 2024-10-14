@@ -155,3 +155,32 @@ docker-compose up --build
 ```
 
 ## Project Structure
+
+The project structure for the rudp-proctocol-svc is as follows.
+
+```shell
+rudp-protocol-svc-go
+├── Dockerfile-rudp-server
+├── Dockerfile.rudp-client
+├── Makefile
+├── README.md
+├── docker-compose.yaml
+├── docs
+│   └── rudp-protocol-arch.png
+├── go.mod
+├── go.sum
+├── rudp-protocol-kit
+│   ├── go.mod
+│   └── rudp.go
+├── rudp-socket-client
+│   └── main.go
+├── rudp-socket-server
+│   └── main.go
+├── schema
+│   └── schema.cql
+└── storage-kit
+    ├── go.mod
+    ├── go.sum
+    ├── storage-repository.go
+    └── storage.go
+  ```
