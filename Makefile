@@ -1,5 +1,5 @@
 # Variables
-PROJECT_NAME := rudp_protocol-svc
+PROJECT_NAME := rudp-protocol-svc
 CLIENT_DIR := ./rudp-socket-client
 SERVER_DIR := ./rudp-socket-server
 RUDP_PROTOCOL_DIR := ./rudp-protocol-kit
