@@ -150,6 +150,45 @@ down:
 
 ## Run the Project
 
+The project includes a docker-compose.yaml file that is as follows.
+
+```Yaml
+version: "3"
+services:
+  scylla-db:
+    image: scylladb/scylla:latest
+    ports:
+      - "9042:9042"
+    networks:
+      - rudp-network
+
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    ports:
+      - "8080:8080/udp"
+    networks:
+      - rudp-network
+    depends_on:
+      - scylla-db
+    environment:
+      SCYLLA_CONTACT_POINTS: "scylla-db"
+
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    networks:
+      - rudp-network
+    depends_on:
+      - server
+
+networks:
+  rudp-network:
+    driver: bridge
+```
+
 ```shell
 docker-compose up --build
 ```
